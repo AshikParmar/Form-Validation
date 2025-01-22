@@ -1,0 +1,32 @@
+.box{
+    display: flex;
+    flex-direction: column;
+    background-color: #352c7a;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    width: 400px;
+}
+
+
+form label{
+    padding: 3px;
+    font-size: large;
+}
+
+form input{
+    padding: 5px;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    margin-top: -20px;
+    margin-bottom: 10px;
+    color: red;
+    font-size: 12px;
+}
+
+
+
