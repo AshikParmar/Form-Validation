@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { use } from 'react';
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
 
   const handleSubmit = (e) => {
@@ -16,6 +18,33 @@ function App() {
     const newErrors = validateForm();
     setErrors(newErrors);
 
+    if (isValid(newErrors)) {
+      // Show popup
+      setIsPopupVisible(true);
+  
+      // Auto-close popup after 3 seconds
+      setTimeout(() => {
+        setIsPopupVisible(false);
+      }, 3000);
+  
+      // Clear input fields
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    } else {
+      setIsPopupVisible(false);
+    }
+
+  };
+
+  const isValid = (newErrors) => {
+    if(Object.keys(newErrors).length === 0){
+      return true;
+    }else{
+      return false;
+    }
+    
   };
 
   const validateForm = () => {
@@ -118,6 +147,17 @@ function App() {
 
        
       </form>
+
+      {/* Popup */}
+      {isPopupVisible && (
+        <div className="popup-overlay">
+          <div className="popup-container">
+            <h3>Form Submitted!</h3>
+            <p>Thank you! Your form has been successfully submitted.</p>
+          </div>
+        </div>
+      )}
+
       
     </div>
   )
