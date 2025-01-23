@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import './App.css'
-import { use } from 'react';
+import './App.css';
 
 function App() {
 
@@ -10,6 +9,7 @@ function App() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [show, setShow] = useState(true);
 
 
   const handleSubmit = (e) => {
@@ -38,6 +38,10 @@ function App() {
 
   };
 
+  const showHandle = () => {
+    setShow(!show);
+  }
+
   const isValid = (newErrors) => {
     if(Object.keys(newErrors).length === 0){
       return true;
@@ -48,6 +52,7 @@ function App() {
   };
 
   const validateForm = () => {
+
     const errors = {};
 
     if(!username){
@@ -85,7 +90,7 @@ function App() {
     <div className='box'>
       <h1>From Validation</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div >
         <label >User Name:</label>
         <input type="text" 
@@ -115,12 +120,23 @@ function App() {
         </div>
 
         <div>
-        <label >Password:</label>
-        <input type="password" 
-        name='password'
-        value={password}
-        onChange={(e)=>{setPassword(e.target.value.trim())}}
-        />
+          <label >Password:</label>
+          <div className='password'>
+          <input type={ show ? "password" : "text"} 
+          name='password'
+          value={password}
+          onChange={(e)=>{setPassword(e.target.value.trim())}}
+          />
+          {password && (
+                  <p className='show-button'
+                    onClick={showHandle}
+                  >
+                    { show ? "Show" : "Hide"}
+                  </p>
+          )}
+        </div>
+
+        
         {errors.password && (
                         <span className="error-message">
                             {errors.password}
@@ -130,11 +146,12 @@ function App() {
 
         <div>
           <label >Confirm Password:</label>
-        <input type="password" 
+        <input type={ show ? "password" : "text"} 
         name='confirm-password'
         value={confirmPassword}
-        onChange={(e)=>{setConfirmPassword(e.target.value.trim())}}
+        onChange={(e)=>{setConfirmPassword(e.target.value.trim())}}        
         />
+        
         {errors.confirmPassword && (
                         <span className="error-message">
                             {errors.confirmPassword}
@@ -143,7 +160,9 @@ function App() {
         </div>
 
 
-        <button type='submit'>Submit</button>
+        <div>
+          <button type='submit'>Submit</button>
+        </div>
 
        
       </form>

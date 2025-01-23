@@ -20,7 +20,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #a399f9b8;
+  /* background-color: #a399f9b8; */
+  background-image: linear-gradient(to right, rgb(34, 190, 221) , rgb(154, 10, 156));
 }
 
 h1 {
